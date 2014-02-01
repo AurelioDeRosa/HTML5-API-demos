@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Dataset API Demo by Aurelio De Rosa</title>
+      <style>
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         #log
+         {
+            height: 200px;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .buttons-demo-wrapper
+         {
+            text-align: center;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            margin: 1em;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <a href="http://www.sitepoint.com/managing-custom-data-html5-dataset-api/">Go back to the article</a>
+
+      <h1>Dataset API</h1>
+
+      <h3>Live sample element</h3>
+      <div id="showcase">
+         &lt;span id="play-element" class="hidden" data-level="1" data-points="100" data-final-opponent="Dragon"&gt;&lt;/span&gt;
+      </div>
+
+      <h3>Play area</h3>
+      <div>
+         <label for="key">Key:</label>
+         <input type="text" id="key"></input>
+         <label for="value">Value:</label>
+         <input type="text" id="value"></input>
+
+         <div class="buttons-demo-wrapper">
+            <button id="set-data" class="button-demo">Set data</button>
+            <button id="get-data" class="button-demo">Get data</button>
+            <button id="delete-data" class="button-demo">Delete data</button>
+         </div>
+      </div>
+      
+      <span id="d-unsupported" class="hidden">API not supported</span>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-log" class="button-demo">Clear log</button>
+
+      <span id="play-element" class="hidden" data-level="1" data-points="100" data-final-opponent="Dragon"></span>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         if (!'dataset' in document.createElement('span')) {
+            document.getElementById('d-unsupported').classList.remove('hidden');
+            ['set-data', 'get-data', 'delete-data'].forEach(function(elementId, index) {
+               document.getElementById(elementId).setAttribute('disabled', 'disabled');
+            });
+         } else {
+            var playElement = document.getElementById('play-element');
+            var key = document.getElementById('key');
+            var value = document.getElementById('value');
+            var log = document.getElementById('log');
+            var showcase = document.getElementById('showcase');
+
+            document.getElementById('clear-log').addEventListener('click', function() {
+               log.innerHTML = '';
+            });
+            document.getElementById('set-data').addEventListener('click', function() {
+               if (key.value.indexOf('-') !== -1) {
+                  log.innerHTML = 'Warning! Hyphen not allowed. Use camelCase instead.\n' +
+                                  log.innerHTML;
+               } else {
+                  playElement.dataset[key.value] = value.value;
+                  showcase.textContent = playElement.outerHTML;
+                  log.innerHTML = 'Set data-' + key.value + ' attribute to "' + value.value + '"<br />' +
+                                  log.innerHTML;
+               }
+               
+            });
+            document.getElementById('get-data').addEventListener('click', function() {
+               if (key.value.indexOf('-') !== -1) {
+                  log.innerHTML = 'Warning! Hyphen not allowed. Use camelCase instead.<br />' +
+                                  log.innerHTML;
+               } else {
+                  log.innerHTML = 'Get data-' + key.value + ' attribute. Value: "' + playElement.dataset[key.value] + '"<br />' +
+                                  log.innerHTML;
+               }
+            });
+            document.getElementById('delete-data').addEventListener('click', function() {
+               if (key.value.indexOf('-') !== -1) {
+                  log.innerHTML = 'Warning! Hyphen not allowed. Use camelCase instead.<br />' +
+                                  log.innerHTML;
+               } else {
+                  delete playElement.dataset[key.value];
+                  showcase.textContent = playElement.outerHTML;
+                  log.innerHTML = 'Deleted data-' + key.value + ' attribute<br />' +
+                                  log.innerHTML;
+               }
+            });
+         }
+      </script>
+   </body>
+</html>

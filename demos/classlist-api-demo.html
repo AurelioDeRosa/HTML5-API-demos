@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>ClassList API Demo by Aurelio De Rosa</title>
+      <style>
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .field-wrapper
+         {
+            margin-top: 1em;
+         }
+
+         #log
+         {
+            height: 200px;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            margin: 1em;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <a href="http://www.sitepoint.com/exploring-classlist-api/">Go back to the article</a>
+
+      <h1>ClassList API</h1>
+
+      <h3>Live sample element</h3>
+      <div id="showcase">
+         &lt;span id="play-element" class="description"&gt;&lt;/span&gt;
+      </div>
+
+      <h3>Play area</h3>
+      <div>
+         <div class="field-wrapper">
+         <label for="method">Methods and Properties:</label>
+            <select id="method">
+               <option value="add">add()</option>
+               <option value="contains">contains()</option>
+               <option value="item">item()</option>
+               <option value="length">length</option>
+               <option value="remove">remove()</option>
+               <option value="toString">toString()</option>
+               <option value="toggle">toggle()</option>
+            </select>
+         </div>
+         <div class="field-wrapper">
+            <label for="parameter">Parameters (use spaces for multiple parameters):</label>
+            <input type="text" id="parameter"></input>
+         </div>
+
+         <button id="execute" class="button-demo">Execute</button>
+      </div>
+      
+      <span id="d-unsupported" class="hidden">API not supported</span>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-log" class="button-demo">Clear log</button>
+
+      <span id="play-element" class="description"></span>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         if (!'classList' in document.createElement('span')) {
+            document.getElementById('c-unsupported').classList.remove('hidden');
+            document.getElementById('execute').setAttribute('disabled', 'disabled');
+         } else {
+            var playElement = document.getElementById('play-element');
+            var method = document.getElementById('method');
+            var parameter = document.getElementById('parameter');
+            var log = document.getElementById('log');
+            var showcase = document.getElementById('showcase');
+
+            document.getElementById('clear-log').addEventListener('click', function() {
+               log.innerHTML = '';
+            });
+            document.getElementById('execute').addEventListener('click', function() {
+               var message = method.value;
+
+               if (method.value === 'length') {
+                  message += ': ' + playElement.classList[method.value]
+               } else {
+                  var result = playElement.classList[method.value].apply(playElement.classList, parameter.value.split(' '));
+                  showcase.textContent = playElement.outerHTML;
+                  if (method.value === 'add' || method.value === 'remove' || method.value === 'toggle') {
+                     message += ' class "' + parameter.value + '"';
+                  } else {
+                     message += ': ' + result;
+                  }
+               }
+               
+               log.innerHTML = message + '<br />' + log.innerHTML;
+            });
+         }
+      </script>
+   </body>
+</html>
