@@ -85,35 +85,35 @@
 
                document.getElementById('ut-results').classList.remove('hidden');
                // A time consuming function
-               performance.mark("startTime1");
+               performance.mark('startTime1');
                for(i = 0; i < parseInt(document.getElementById('count-ut-1').value); i++);
-               performance.mark("endTime1")
+               performance.mark('endTime1')
 
                // Another time consuming function
-               performance.mark("startTime2");
+               performance.mark('startTime2');
                for(i = 0; i < parseInt(document.getElementById('count-ut-2').value); i++);
-               performance.mark("endTime2");
+               performance.mark('endTime2');
 
-               performance.measure("durationTime1", "startTime1", "endTime1");
-               performance.measure("durationTime2", "startTime2", "endTime2");
-               performance.measure("durationTimeTotal", "startTime1", "endTime2");
+               performance.measure('durationTime1', 'startTime1', 'endTime1');
+               performance.measure('durationTime2', 'startTime2', 'endTime2');
+               performance.measure('durationTimeTotal', 'startTime1', 'endTime2');
 
                // Print marks
-               perfMarks = performance.getEntriesByType("mark");
+               perfMarks = performance.getEntriesByType('mark');
                document.getElementById('ut-marks').innerHTML = '';
                for (i = 0; i < perfMarks.length; i++) {
                   document.getElementById('ut-marks').innerHTML +=
-                          "Name: " + perfMarks[i].name + " - " +
-                                  "Start Time: " + perfMarks[i].startTime + "<br />";
+                          'Name: ' + perfMarks[i].name + ' - ' +
+                                  'Start Time: ' + perfMarks[i].startTime + '<br />';
                }
 
                // Print measures
-               perfMeasures = performance.getEntriesByType("measure");
+               perfMeasures = performance.getEntriesByType('measure');
                document.getElementById('ut-measures').innerHTML = '';
                for (i = 0; i < perfMeasures.length; i++) {
                   document.getElementById('ut-measures').innerHTML +=
-                          "Name: " + perfMeasures[i].name + " - " +
-                                  "Duration: " + perfMeasures[i].duration + "<br />";
+                          'Name: ' + perfMeasures[i].name + ' - ' +
+                                  'Duration: ' + perfMeasures[i].duration + '<br />';
                }
                performance.clearMarks();
                performance.clearMeasures();
