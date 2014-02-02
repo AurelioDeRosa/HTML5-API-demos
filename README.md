@@ -6,6 +6,7 @@ In this repository you can find the demos for the following APIs, listed in alph
 - Dataset API [[Specifications](http://www.w3.org/TR/html5/dom.html#dom-dataset)] [[Article](http://www.sitepoint.com/managing-custom-data-html5-dataset-api/)] [[Live demo](http://aurelio.audero.it/demo/dataset-api-demo.html)]
 - getUserMedia API [[Specifications](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)] [[Article](http://www.sitepoint.com/introduction-getusermedia-api/)] [[Live demo](http://aurelio.audero.it/demo/getusermedia-api-demo.html)]
 - User Timing API [[Specifications](http://www.w3.org/TR/user-timing/)] [[Article](http://www.sitepoint.com/discovering-user-timing-api/)] [[Live demo](http://aurelio.audero.it/demo/user-timing-api-demo.html)]
+- Vibration API [[Specifications](http://www.w3.org/TR/vibration/)] [[Live demo](http://aurelio.audero.it/demo/vibration-api-demo.html)]
 
 ## License ##
 [HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is licensed under the
