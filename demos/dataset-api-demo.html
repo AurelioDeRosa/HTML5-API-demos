@@ -105,7 +105,7 @@
             });
             document.getElementById('set-data').addEventListener('click', function() {
                if (key.value.indexOf('-') !== -1) {
-                  log.innerHTML = 'Warning! Hyphen not allowed. Use camelCase instead.\n' +
+                  log.innerHTML = 'Warning! Hyphen not allowed. Use camelCase instead.<br />' +
                                   log.innerHTML;
                } else {
                   playElement.dataset[key.value] = value.value;
