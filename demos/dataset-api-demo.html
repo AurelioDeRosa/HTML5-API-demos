@@ -90,7 +90,7 @@
       <script>
          if (!'dataset' in document.createElement('span')) {
             document.getElementById('d-unsupported').classList.remove('hidden');
-            ['set-data', 'get-data', 'delete-data'].forEach(function(elementId, index) {
+            ['set-data', 'get-data', 'delete-data'].forEach(function(elementId) {
                document.getElementById(elementId).setAttribute('disabled', 'disabled');
             });
          } else {
