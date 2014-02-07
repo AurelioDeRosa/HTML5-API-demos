@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>High Resolution Time API Demo by Aurelio De Rosa</title>
+      <style>
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .field-wrapper
+         {
+            margin-bottom: 1em;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            display: block;
+            margin: 1em auto;
+         }
+
+         #log
+         {
+            height: 200px;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <a href="http://www.sitepoint.com/discovering-the-high-resolution-time-api/">Go back to the article</a>
+
+      <h1>High Resolution Time API</h1>
+      <form>
+         <div class="field-wrapper">
+            <label for="count-hrt-1">Test 1: Count until</label>
+            <input type="number" id="count-hrt-1" value="100000" />
+         </div>
+
+         <div class="field-wrapper">
+            <label for="count-hrt-2">Test 2: Count until</label>
+            <input type="number" id="count-hrt-2" value="1000000" />
+         </div>
+
+         <button type="button" id="button-play-hrt" class="button-demo">Run demo</button>
+      </form>
+      <span id="hrt-unsupported" class="hidden">API not supported</span>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-log" class="button-demo">Clear log</button>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         window.performance = window.performance || {};
+         performance.now = performance.now       ||
+                           performance.webkitNow ||
+                           null;
+         if (performance.now === null) {
+            document.getElementById('hrt-unsupported').classList.remove('hidden');
+            document.getElementById('button-play-hrt').setAttribute('disabled', 'disabled');
+         } else {
+            var log = document.getElementById('log');
+
+            document.getElementById('button-play-hrt').addEventListener('click', function() {
+               var i;
+               var startTime;
+               var endTime;
+               var testLog;
+
+               // A time consuming operation
+               startTime = performance.now();
+               testLog = "Test1 start time: " + startTime + "<br />";
+               for(i = 0; i < parseInt(document.getElementById('count-hrt-1').value); i++);
+               endTime = performance.now();
+               testLog += "Test1 end time: " + endTime + "<br />";
+               testLog += "Test1 duration: " + (endTime - startTime) + "<br />";
+
+               // Another time consuming operation
+               startTime = performance.now();
+               testLog += "Test2 start time: " + startTime + "<br />";
+               for(i = 0; i < parseInt(document.getElementById('count-hrt-2').value); i++);
+               endTime = performance.now();
+               testLog += "Test2 end time: " + endTime + "<br />";
+               testLog += "Test2 duration: " + (endTime - startTime) + "<br />";
+
+               log.innerHTML = testLog + log.innerHTML;
+            });
+
+            document.getElementById('clear-log').addEventListener('click', function() {
+               log.innerHTML = '';
+            });
+         }
+      </script>
+   </body>
+</html>
+   
