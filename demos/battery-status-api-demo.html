@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Battery Status API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .bs-info
+         {
+            font-weight: bold;
+         }
+
+         #log
+         {
+            height: 200px;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            margin: 1em;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Battery Status API</h1>
+      <span id="bs-unsupported" class="hidden">API not supported</span>
+
+      <div id="bt-results" class="hidden">
+         <h3>Current Status</h3>
+         <div id="bs-status">
+            <ul>
+               <li>Is battery in charge? <span id="in-charge" class="bs-info">unavailable</span></li>
+               <li>Battery will be charged in <span id="charging-time" class="bs-info">unavailable</span> seconds</li>
+               <li>Battery will be discharged in <span id="discharging-time" class="bs-info">unavailable</span> seconds</li>
+               <li>Current battery level: <span id="battery-level" class="bs-info">unavailable</span>/1</li>
+            </ul>
+         </div>
+      </div>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-log" class="button-demo">Clear log</button>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         window.navigator = window.navigator || {};
+         navigator.battery = navigator.battery ||
+                             null;
+         if (navigator.battery === null) {
+            document.getElementById('bs-unsupported').classList.remove('hidden');
+         } else {
+            var log = document.getElementById('log');
+
+            document.getElementById('bt-results').classList.remove('hidden');
+            function updateInfo(event) {
+               if (event !== undefined) {
+                  log.innerHTML = 'Event "' + event.type + '" fired<br />' + log.innerHTML;
+               }
+               document.getElementById('in-charge').innerHTML = (navigator.battery.charging ? "Yes" : "No");
+               document.getElementById('charging-time').innerHTML = navigator.battery.chargingTime;
+               document.getElementById('discharging-time').innerHTML = navigator.battery.dischargingTime;
+               document.getElementById('battery-level').innerHTML = navigator.battery.level;
+            }
+
+            var events = ['chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange'];
+            for (var i = 0; i < events.length; i++) {
+               navigator.battery.addEventListener(events[i], updateInfo);
+            }
+            updateInfo();
+
+            document.getElementById('clear-log').addEventListener('click', function() {
+               log.innerHTML = '';
+            });
+         }
+      </script>
+   </body>
+</html>

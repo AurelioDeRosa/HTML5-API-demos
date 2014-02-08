@@ -2,6 +2,7 @@
 [HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is a collection of demos that I've developed over the time as a complement for some of the articles I've published. These demos allow you to play with the functionalities of some of the APIs introduced in HTML5.
 
 In this repository you can find the demos for the following APIs, listed in alphabetic order:
+- Battery Status API [[Specifications](http://www.w3.org/TR/battery-status/)] [[Live demo](http://aurelio.audero.it/demo/battery-status-api-demo.html)]
 - ClassList API [[Specifications](http://dom.spec.whatwg.org/#dom-element-classlist)] [[Article](http://www.sitepoint.com/exploring-classlist-api/)] [[Live demo](http://aurelio.audero.it/demo/classlist-api-demo.html)]
 - Dataset API [[Specifications](http://www.w3.org/TR/html5/dom.html#dom-dataset)] [[Article](http://www.sitepoint.com/managing-custom-data-html5-dataset-api/)] [[Live demo](http://aurelio.audero.it/demo/dataset-api-demo.html)]
 - getUserMedia API [[Specifications](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)] [[Article](http://www.sitepoint.com/introduction-getusermedia-api/)] [[Live demo](http://aurelio.audero.it/demo/getusermedia-api-demo.html)]
