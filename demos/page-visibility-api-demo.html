@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Page Visibility API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         #log
+         {
+            height: 200px;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            margin: 1em auto;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Page Visibility API</h1>
+      <span id="pv-unsupported" class="hidden">API not supported</span>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-log" class="button-demo">Clear log</button>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         var hiddenProperty = 'hidden' in document ? 'hidden' :
+                              'webkitHidden' in document ? 'webkitHidden' :
+                              'mozHidden' in document ? 'mozHidden' :
+                              null;
+         var visibilityStateProperty = 'visibilityState' in document ? 'visibilityState' :
+                                       'webkitVisibilityState' in document ? 'webkitVisibilityState' :
+                                       'mozVisibilityState' in document ? 'mozVisibilityState' :
+                                       null;
+
+         if (hiddenProperty === null || visibilityStateProperty === null) {
+            document.getElementById('pv-unsupported').classList.remove('hidden');
+         } else {
+            var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+            var log = document.getElementById('log');
+            var views = 0;
+
+            function onVisibilityChange() {
+               if (!document[hiddenProperty]) {
+                  views++;
+               }
+
+               log.innerHTML = 'The page is currently <b>' + (document[hiddenProperty] ? 'hidden' : 'visible') + '</b> ' +
+                       'and its state is <b>' + document[visibilityStateProperty] + '</b>. ' +
+                       'You have seen this page <b>' + views + '</b> times.<br />' +
+                       log.innerHTML;
+            }
+
+            document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+
+            document.getElementById('clear-log').addEventListener('click', function() {
+               log.innerHTML = '';
+            });
+
+            onVisibilityChange();
+         }
+      </script>
+   </body>
+</html>
+   
