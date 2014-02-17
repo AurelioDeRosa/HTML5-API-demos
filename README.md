@@ -3,7 +3,7 @@
 
 In this repository you can find the demos for the following APIs, listed in alphabetic order:
 - Battery Status API [[Specifications](http://www.w3.org/TR/battery-status/)] [[Live demo](http://aurelio.audero.it/demo/battery-status-api-demo.html)]
-- ClassList API [[Specifications](http://dom.spec.whatwg.org/#dom-element-classlist)] [[Article](http://www.sitepoint.com/exploring-classlist-api/)] [[Support](http://caniuse.com/#feat=classlist)] [[Live demo](http://aurelio.audero.it/demo/classlist-api-demo.html)]
+- classList API [[Specifications](http://dom.spec.whatwg.org/#dom-element-classlist)] [[Article](http://www.sitepoint.com/exploring-classlist-api/)] [[Support](http://caniuse.com/#feat=classlist)] [[Live demo](http://aurelio.audero.it/demo/classlist-api-demo.html)]
 - Dataset API [[Specifications](http://www.w3.org/TR/html5/dom.html#dom-dataset)] [[Article](http://www.sitepoint.com/managing-custom-data-html5-dataset-api/)] [[Support](http://caniuse.com/#feat=dataset)] [[Live demo](http://aurelio.audero.it/demo/dataset-api-demo.html)]
 - getUserMedia API [[Specifications](http://dev.w3.org/2011/webrtc/editor/getusermedia.html)] [[Article](http://www.sitepoint.com/introduction-getusermedia-api/)] [[Support](http://caniuse.com/#feat=stream)] [[Live demo](http://aurelio.audero.it/demo/getusermedia-api-demo.html)]
 - High Resolution Time API [[Specifications](http://www.w3.org/TR/hr-time/)] [[Article](http://www.sitepoint.com/discovering-the-high-resolution-time-api/)] [[Live demo](http://aurelio.audero.it/demo/high-resolution-time-api-demo.html)]
