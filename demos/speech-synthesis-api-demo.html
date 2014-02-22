@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Speech Synthesis API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1,
+         .buttons-wrapper
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         #text,
+         #log
+         {
+            display: block;
+            width: 100%;
+            height: 5em;
+            overflow-y: scroll;
+            border: 1px solid #333333;
+            line-height: 1.3em;
+         }
+
+         .field-wrapper
+         {
+            margin-top: 0.2em;
+         }
+
+         .button-demo
+         {
+            padding: 0.5em;
+            display: inline-block;
+            margin: 1em auto;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Speech Synthesis API</h1>
+
+      <h3>Play area</h3>
+      <form action="" method="get">
+         <label for="text">Text:</label>
+         <textarea id="text"></textarea>
+         <div class="field-wrapper">
+            <label for="voice">Voice:</label>
+            <select id="voice"></select>
+         </div>
+         <div class="field-wrapper">
+            <label for="rate">Rate (0.1 - 10):</label>
+            <input type="number" id="rate" min="0.1" max="10" value="1" step="any" />
+         </div>
+         <div class="field-wrapper">
+            <label for="pitch">Pitch (0.1 - 2):</label>
+            <input type="number" id="pitch" min="0.1" max="2" value="1" step="any" />
+         </div>
+         <div class="buttons-wrapper">
+            <button id="button-speak-ss" class="button-demo">Speak</button>
+            <button id="button-stop-ss" class="button-demo">Stop</button>
+            <button id="button-pause-ss" class="button-demo">Pause</button>
+            <button id="button-resume-ss" class="button-demo">Resume</button>
+         </div>
+      </form>
+
+      <span id="ss-unsupported" class="hidden">API not supported</span>
+
+      <h3>Log</h3>
+      <div id="log"></div>
+      <button id="clear-all" class="button-demo">Clear all</button>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         // Test browser support
+         if (window.SpeechSynthesisUtterance === undefined) {
+            document.getElementById('ss-unsupported').classList.remove('hidden');
+            ['button-speak-ss', 'button-stop-ss', 'button-pause-ss', 'button-resume-ss'].forEach(function(elementId) {
+               document.getElementById(elementId).setAttribute('disabled', 'disabled');
+            });
+         } else {
+            var text = document.getElementById('text');
+            var voices = document.getElementById('voice');
+            var rate = document.getElementById('rate');
+            var pitch = document.getElementById('pitch');
+            var log = document.getElementById('log');
+
+            // Workaround for a Chrome issue (#340160 - https://code.google.com/p/chromium/issues/detail?id=340160)
+            var watch = setInterval(function() {
+               // Load all voices available
+               var voicesAvailable = speechSynthesis.getVoices();
+               if (voicesAvailable.length !== 0) {
+                  for(var i = 0; i < voicesAvailable.length; i++) {
+                     voices.innerHTML += '<option value="' + voicesAvailable[i].lang + '"' +
+                             'data-voice-uri="' + voicesAvailable[i].voiceURI + '">' +
+                             voicesAvailable[i].name +
+                             (voicesAvailable[i].default ? ' (default)' : '') + '</option>';
+                  }
+                  clearInterval(watch);
+               }
+            }, 1);
+
+
+            document.getElementById('button-speak-ss').addEventListener('click', function(event) {
+               event.preventDefault();
+
+               var selectedVoice = voices.options[voices.selectedIndex];
+
+               // Create the utterance object setting the chosen parameters
+               var utterance = new SpeechSynthesisUtterance();
+               utterance.text = text.value;
+               utterance.voice = selectedVoice.getAttribute('data-voice-uri');
+               utterance.lang = selectedVoice.value;
+               utterance.rate = rate.value;
+               utterance.pitch = pitch.value;
+
+               utterance.onstart = function() {
+                  log.innerHTML = 'Speaker started' + '<br />' + log.innerHTML;
+               };
+               utterance.onend = function() {
+                  log.innerHTML = 'Speaker finished' + '<br />' + log.innerHTML;
+               };
+
+               window.speechSynthesis.speak(utterance);
+            });
+            document.getElementById('button-stop-ss').addEventListener('click', function(event) {
+               event.preventDefault();
+
+               window.speechSynthesis.cancel();
+               log.innerHTML = 'Speaker stopped' + '<br />' + log.innerHTML;
+            });
+            document.getElementById('button-pause-ss').addEventListener('click', function(event) {
+               event.preventDefault();
+
+               window.speechSynthesis.pause();
+               log.innerHTML = 'Speaker paused' + '<br />' + log.innerHTML;
+            });
+            document.getElementById('button-resume-ss').addEventListener('click', function(event) {
+               event.preventDefault();
+
+               if (window.speechSynthesis.paused === true) {
+                  window.speechSynthesis.resume();
+                  log.innerHTML = 'Speaker resumed' + '<br />' + log.innerHTML;
+               } else {
+                  log.innerHTML = 'Unable to resume. Speaker is not paused.' + '<br />' + log.innerHTML;
+               }
+            });
+            document.getElementById('clear-all').addEventListener('click', function() {
+               log.textContent = '';
+            });
+         }
+      </script>
+   </body>
+</html>
