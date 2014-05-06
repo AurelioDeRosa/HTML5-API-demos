@@ -12,6 +12,7 @@ In this repository you can find the demos for the following APIs, listed in alph
 - Speech Synthesis API [[Specifications](https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html#tts-section)] [[Article](http://www.sitepoint.com/talking-web-pages-and-the-speech-synthesis-api/)] [[Live demo](http://aurelio.audero.it/demo/speech-synthesis-api-demo.html)]
 - User Timing API [[Specifications](http://www.w3.org/TR/user-timing/)] [[Article](http://www.sitepoint.com/discovering-user-timing-api/)] [[Support](http://caniuse.com/#feat=user-timing)] [[Live demo](http://aurelio.audero.it/demo/user-timing-api-demo.html)]
 - Vibration API [[Specifications](http://www.w3.org/TR/vibration/)] [[Article](http://code.tutsplus.com/tutorials/html5-vibration-api--mobile-22585)] [[Support](http://caniuse.com/#feat=vibration)] [[Live demo](http://aurelio.audero.it/demo/vibration-api-demo.html)]
+- Web Notification API [[Specifications](http://www.w3.org/TR/notifications/)] [[Article](http://www.sitepoint.com/introduction-web-notifications-api/)] [[Support](http://caniuse.com/#feat=notifications)] [[Live demo](http://aurelio.audero.it/demo/web-notifications-api-demo.html)]
 - Web Speech API [[Specifications](https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html)] [[Article](http://www.sitepoint.com/introducing-web-speech-api/)] [[Support](http://caniuse.com/#feat=web-speech)] [[Live demo](http://aurelio.audero.it/demo/web-speech-api-demo.html)]
 
 ## License ##
