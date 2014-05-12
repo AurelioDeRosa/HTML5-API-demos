@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Device Orientation API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .cube
+         {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            margin: 30px auto;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+         }
+
+         .face
+         {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            font-size: 80px;
+            text-align: center;
+            line-height: 150px;
+            background-color: #999999;
+            box-shadow: inset 0 0 20px #333333;
+            opacity: 0.6;
+         }
+
+         .cube .one
+         {
+            -webkit-transform: translateZ(75px);
+            transform: translateZ(75px);
+         }
+
+         .cube .two
+         {
+            -webkit-transform: rotateY(90deg) translateZ(75px);
+            transform: rotateY(90deg) translateZ(75px);
+         }
+
+         .cube .three
+         {
+            -webkit-transform: rotateY(180deg) translateZ(75px);
+            transform: rotateY(180deg) translateZ(75px);
+         }
+
+         .cube .four
+         {
+            -webkit-transform: rotateY(-90deg) translateZ(75px);
+            transform: rotateY(-90deg) translateZ(75px);
+         }
+
+         .cube .five
+         {
+            -webkit-transform: rotateX(90deg) translateZ(75px);
+            transform: rotateX(90deg) translateZ(75px);
+         }
+
+         .cube .six
+         {
+            -webkit-transform: rotateX(-90deg) translateZ(75px) rotate(0deg);
+            transform: rotateX(-90deg) translateZ(75px) rotate(0deg);
+         }
+
+         .value
+         {
+            font-weight: bold;
+         }
+
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Device Orientation API</h1>
+      <span id="do-unsupported" class="hidden">deviceorientation event not supported</span>
+      <span id="dm-unsupported" class="hidden">devicemotion event not supported</span>
+      <span id="cnc-unsupported" class="hidden">compassneedscalibration event not supported</span>
+
+      <div id="do-results">
+         <div id="cube" class="cube">
+            <div class="face one">1</div>
+            <div class="face two">2</div>
+            <div class="face three">3</div>
+            <div class="face four">4</div>
+            <div class="face five">5</div>
+            <div class="face six">6</div>
+         </div>
+         <div id="do-info" class="hidden">
+            <p>
+               Coordinates:
+               (<span id="beta" class="value">null</span>,
+               <span id="gamma" class="value">null</span>,
+               <span id="alpha" class="value">null</span>)
+               <br />
+               Position absolute? <span id="is-absolute" class="value">unavailable</span>
+            </p>
+         </div>
+         <div id="dm-info" class="hidden">
+            <p>
+               Acceleration:
+               (<span id="acceleration-x" class="value">null</span>,
+               <span id="acceleration-y" class="value">null</span>,
+               <span id="acceleration-z" class="value">null</span>)
+               m/s<sup>2</sup>
+            </p>
+            <p>
+               Acceleration including gravity:
+               (<span id="acceleration-including-gravity-x" class="value">null</span>,
+               <span id="acceleration-including-gravity-y" class="value">null</span>,
+               <span id="acceleration-including-gravity-z" class="value">null</span>)
+               m/s<sup>2</sup>
+            </p>
+            <p>
+               Rotation rate:
+               (<span id="rotation-rate-beta" class="value">null</span>,
+               <span id="rotation-rate-gamma" class="value">null</span>,
+               <span id="rotation-rate-alpha" class="value">null</span>)
+            </p>
+            <p>
+               Interval: <span id="interval" class="value">0</span> milliseconds
+            </p>
+         </div>
+      </div>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         if (!window.DeviceOrientationEvent) {
+            document.getElementById('do-unsupported').classList.remove('hidden');
+         } else {
+            document.getElementById('do-info').classList.remove('hidden');
+
+            window.addEventListener('deviceorientation', function(event) {
+               document.getElementById('cube').style.webkitTransform =
+               document.getElementById('cube').style.transform =
+                       'rotateX(' + event.beta + 'deg) ' +
+                       'rotateY(' + event.gamma + 'deg) ' +
+                       'rotateZ(' + event.alpha + 'deg)';
+
+               document.getElementById('beta').innerHTML = Math.round(event.beta);
+               document.getElementById('gamma').innerHTML = Math.round(event.gamma);
+               document.getElementById('alpha').innerHTML = Math.round(event.alpha);
+               document.getElementById('is-absolute').innerHTML = event.absolute ? "true" : "false";
+            });
+         }
+
+         if (!window.DeviceMotionEvent) {
+            document.getElementById('dm-unsupported').classList.remove('hidden');
+         } else {
+            document.getElementById('dm-info').classList.remove('hidden');
+
+            window.addEventListener('devicemotion', function(event) {
+               document.getElementById('acceleration-x').innerHTML = Math.round(event.acceleration.x);
+               document.getElementById('acceleration-y').innerHTML = Math.round(event.acceleration.y);
+               document.getElementById('acceleration-z').innerHTML = Math.round(event.acceleration.z);
+
+               document.getElementById('acceleration-including-gravity-x').innerHTML =
+                       Math.round(event.accelerationIncludingGravity.x);
+               document.getElementById('acceleration-including-gravity-y').innerHTML =
+                       Math.round(event.accelerationIncludingGravity.y);
+               document.getElementById('acceleration-including-gravity-z').innerHTML =
+                       Math.round(event.accelerationIncludingGravity.z);
+
+               document.getElementById('rotation-rate-beta').innerHTML = Math.round(event.rotationRate.beta);
+               document.getElementById('rotation-rate-gamma').innerHTML = Math.round(event.rotationRate.gamma);
+               document.getElementById('rotation-rate-alpha').innerHTML = Math.round(event.rotationRate.alpha);
+
+               document.getElementById('interval').innerHTML = event.interval;
+            });
+         }
+
+         if (!('oncompassneedscalibration' in window)) {
+            document.getElementById('cnc-unsupported').classList.remove('hidden');
+         } else {
+            window.addEventListener('compassneedscalibration', function(event) {
+               alert('Compass needs calibrating! Wave your device in a figure-eight motion');
+            });
+         }
+      </script>
+   </body>
+</html>
