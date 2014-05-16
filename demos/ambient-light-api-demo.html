@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Ambient Light API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .api-support
+         {
+            display: block;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .value
+         {
+            font-weight: bold;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Ambient Light API</h1>
+
+      <span id="dl-unsupported" class="api-support hidden">devicelight event not supported</span>
+      <span id="ll-unsupported" class="api-support hidden">lightlevel event not supported</span>
+
+      <ul>
+         <li>
+            The current light is <span id="dl-value" class="value">null</span> lux.
+         </li>
+         <li>
+            The current state is <span id="ll-value" class="value">null</span>.
+         </li>
+      </ul>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>)
+      </small>
+
+      <script>
+         if (!('ondevicelight' in window)) {
+            document.getElementById('dl-unsupported').classList.remove('hidden');
+         } else {
+            var lightValue = document.getElementById('dl-value');
+
+            window.addEventListener('devicelight', function(event) {
+               lightValue.innerHTML = event.value;
+            });
+         }
+
+         if (!('onlightlevel' in window)) {
+            document.getElementById('ll-unsupported').classList.remove('hidden');
+         } else {
+            var lightStateValue = document.getElementById('ll-value');
+
+            window.addEventListener('lightlevel', function(event) {
+               lightStateValue.innerHTML = event.value;
+            });
+         }
+      </script>
+   </body>
+</html>
+   
