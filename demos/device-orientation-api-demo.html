@@ -161,7 +161,7 @@
       </small>
 
       <script>
-         if (!window.DeviceOrientationEvent) {
+         if (!('ondeviceorientation' in window)) {
             document.getElementById('do-unsupported').classList.remove('hidden');
          } else {
             document.getElementById('do-info').classList.remove('hidden');
@@ -180,7 +180,7 @@
             });
          }
 
-         if (!window.DeviceMotionEvent) {
+         if (!('ondevicemotion' in window)) {
             document.getElementById('dm-unsupported').classList.remove('hidden');
          } else {
             document.getElementById('dm-info').classList.remove('hidden');
