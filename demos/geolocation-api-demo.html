@@ -66,14 +66,14 @@
    <body>
       <a href="http://code.tutsplus.com/tutorials/an-introduction-to-the-geolocation-api--cms-20071">Go back to the article</a>
 
+      <span id="g-unsupported" class="hidden">API not supported</span>
+
       <h1>Geolocation API</h1>
       <div class="buttons-wrapper">
          <button id="button-get-position" class="button-demo">Get current position</button>
          <button id="button-watch-position" class="button-demo">Watch position</button>
          <button id="button-stop-watching" class="button-demo">Stop watching position</button>
       </div>
-
-      <span id="g-unsupported" class="hidden">API not supported</span>
 
       <h2>Information</h2>
       <div id="g-information">
@@ -103,10 +103,7 @@
       </small>
 
       <script>
-         window.navigator = window.navigator || {};
-         window.navigator.geolocation = window.navigator.geolocation ||
-                                        undefined;
-         if (navigator.geolocation === undefined) {
+         if (!(window.navigator && window.navigator.geolocation)) {
             document.getElementById('g-unsupported').classList.remove('hidden');
             ['button-get-position', 'button-watch-position', 'button-stop-watching'].forEach(function(elementId) {
                document.getElementById(elementId).setAttribute('disabled', 'disabled');
