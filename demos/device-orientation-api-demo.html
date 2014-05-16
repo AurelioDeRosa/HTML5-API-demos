@@ -26,6 +26,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -95,7 +100,6 @@
             font-weight: bold;
          }
 
-
          .author
          {
             display: block;
@@ -105,9 +109,10 @@
    </head>
    <body>
       <h1>Device Orientation API</h1>
-      <span id="do-unsupported" class="hidden">deviceorientation event not supported</span>
-      <span id="dm-unsupported" class="hidden">devicemotion event not supported</span>
-      <span id="cnc-unsupported" class="hidden">compassneedscalibration event not supported</span>
+
+      <span id="do-unsupported" class="api-support hidden">deviceorientation event not supported</span>
+      <span id="dm-unsupported" class="api-support hidden">devicemotion event not supported</span>
+      <span id="cnc-unsupported" class="api-support hidden">compassneedscalibration event not supported</span>
 
       <div id="do-results">
          <div id="cube" class="cube">

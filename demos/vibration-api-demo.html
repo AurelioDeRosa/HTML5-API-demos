@@ -26,6 +26,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -54,13 +59,13 @@
 
       <h1>Vibration API</h1>
 
+      <span id="v-unsupported" class="api-support hidden">API not supported</span>
+
       <div class="buttons-wrapper">
          <button id="button-play-v-once" class="button-demo">Vibrate Once</button>
          <button id="button-play-v-thrice" class="button-demo">Vibrate Thrice</button>
          <button id="button-stop-v" class="button-demo">Stop</button>
       </div>
-
-      <span id="v-unsupported" class="hidden">API not supported</span>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>

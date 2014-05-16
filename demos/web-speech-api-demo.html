@@ -31,6 +31,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -65,6 +70,9 @@
       <a href="http://www.sitepoint.com/introducing-web-speech-api/">Go back to the article</a>
 
       <h1>Web Speech API</h1>
+
+      <span id="ws-unsupported" class="api-support hidden">API not supported</span>
+
       <h2>Transcription</h2>
       <textarea id="transcription" readonly="readonly"></textarea>
 
@@ -80,7 +88,6 @@
          <button id="button-stop-ws" class="button-demo">Stop demo</button>
          <button id="clear-all" class="button-demo">Clear all</button>
       </div>
-      <span id="ws-unsupported" class="hidden">API not supported</span>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>

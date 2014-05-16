@@ -26,6 +26,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -63,6 +68,9 @@
       <a href="http://www.sitepoint.com/discovering-the-high-resolution-time-api/">Go back to the article</a>
 
       <h1>High Resolution Time API</h1>
+
+      <span id="hrt-unsupported" class="api-support hidden">API not supported</span>
+
       <form>
          <div class="field-wrapper">
             <label for="count-hrt-1">Test 1: Count until</label>
@@ -76,7 +84,6 @@
 
          <button type="button" id="button-play-hrt" class="button-demo">Run demo</button>
       </form>
-      <span id="hrt-unsupported" class="hidden">API not supported</span>
 
       <h3>Log</h3>
       <div id="log"></div>

@@ -27,6 +27,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -67,6 +72,8 @@
 
       <h1>Speech Synthesis API</h1>
 
+      <span id="ss-unsupported" class="api-support hidden">API not supported</span>
+
       <h3>Play area</h3>
       <form action="" method="get">
          <label for="text">Text:</label>
@@ -90,8 +97,6 @@
             <button id="button-resume-ss" class="button-demo">Resume</button>
          </div>
       </form>
-
-      <span id="ss-unsupported" class="hidden">API not supported</span>
 
       <h3>Log</h3>
       <div id="log"></div>

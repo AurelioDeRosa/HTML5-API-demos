@@ -26,6 +26,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -54,6 +59,9 @@
       <a href="http://www.sitepoint.com/discovering-user-timing-api/">Go back to the article</a>
 
       <h1>User Timing API</h1>
+
+      <span id="ut-unsupported" class="api-support hidden">API not supported</span>
+
       <form>
          <div class="field-wrapper">
             <label for="count-ut-1">Test 1: Count until</label>
@@ -67,7 +75,7 @@
 
          <button type="button" id="button-play-ut" class="button-demo">Run demo</button>
       </form>
-      <span id="ut-unsupported" class="hidden">API not supported</span>
+
       <div id="ut-results" class="hidden">
          <h2>Marks</h2>
          <div id="ut-marks"></div>

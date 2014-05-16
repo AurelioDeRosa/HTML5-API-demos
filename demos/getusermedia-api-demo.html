@@ -31,6 +31,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -60,13 +65,14 @@
       <a href="http://www.sitepoint.com/introduction-getusermedia-api/">Go back to the article</a>
 
       <h1>getUserMedia API</h1>
+      <span id="gum-unsupported" class="api-support hidden">API not supported</span>
+      <span id="gum-partially-supported" class="api-support hidden">API partially supported (video only)</span>
+
       <video id="video" autoplay="autoplay" controls="controls"></video>
       <div class="buttons-wrapper">
          <button id="button-play-gum" class="button-demo">Play demo</button>
          <button id="button-stop-gum" class="button-demo">Stop demo</button>
       </div>
-      <span id="gum-unsupported" class="hidden">API not supported</span>
-      <span id="gum-partially-supported" class="hidden">API partially supported (video only)</span>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>

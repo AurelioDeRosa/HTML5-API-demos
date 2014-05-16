@@ -26,6 +26,11 @@
             text-align: center;
          }
 
+         .api-support
+         {
+            display: block;
+         }
+
          .hidden
          {
             display: none;
@@ -63,6 +68,8 @@
 
       <h1>Dataset API</h1>
 
+      <span id="d-unsupported" class="api-support hidden">API not supported</span>
+
       <h3>Live sample element</h3>
       <div id="showcase">
          &lt;span id="play-element" class="hidden" data-level="1" data-points="100" data-final-opponent="Dragon"&gt;&lt;/span&gt;
@@ -81,8 +88,6 @@
             <button id="delete-data" class="button-demo">Delete data</button>
          </div>
       </div>
-      
-      <span id="d-unsupported" class="hidden">API not supported</span>
 
       <h3>Log</h3>
       <div id="log"></div>
