@@ -75,7 +75,7 @@
             var lightValue = document.getElementById('dl-value');
 
             window.addEventListener('devicelight', function(event) {
-               lightValue.innerHTML = event.value;
+               lightValue.innerHTML = Math.round(event.value);
             });
          }
 
