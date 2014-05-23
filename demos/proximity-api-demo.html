@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Proximity API Demo by Aurelio De Rosa</title>
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .api-support
+         {
+            display: block;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .value
+         {
+            font-weight: bold;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Proximity API</h1>
+
+      <span id="dp-unsupported" class="api-support hidden">deviceproximity event not supported</span>
+      <span id="up-unsupported" class="api-support hidden">userproximity event not supported</span>
+
+      <ul>
+         <li>
+            An object is at a distance of <span id="dp-value" class="value">null</span> centimeters
+            (within a detectable range of <span id="dp-min" class="value">null</span> -
+            <span id="dp-max" class="value">null</span> centimeters).
+         </li>
+         <li>
+            Object close to the device? <span id="up-value" class="value">unavailable</span>
+         </li>
+      </ul>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>).<br />
+         This demo is part of the <a href="https://github.com/AurelioDeRosa/HTML5-API-demos">HTML5 API demos repository</a>.
+      </small>
+
+      <script>
+         if (!('ondeviceproximity' in window)) {
+            document.getElementById('dp-unsupported').classList.remove('hidden');
+         } else {
+            var proximityValue = document.getElementById('dp-value');
+            var proximityMax = document.getElementById('dp-max');
+            var proximityMin = document.getElementById('dp-min');
+
+            window.addEventListener('deviceproximity', function(event) {
+               proximityValue.innerHTML = event.value;
+               proximityMax.innerHTML = event.max;
+               proximityMin.innerHTML = event.min;
+            });
+         }
+
+         if (!('onuserproximity' in window)) {
+            document.getElementById('up-unsupported').classList.remove('hidden');
+         } else {
+            var inProximity = document.getElementById('up-value');
+
+            window.addEventListener('userproximity', function(event) {
+               inProximity.innerHTML = event.near;
+            });
+         }
+      </script>
+   </body>
+</html>
