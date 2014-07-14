@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Resource Timing API Demo by Aurelio De Rosa</title>
+
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .value
+         {
+            font-weight: bold;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Resource Timing API</h1>
+
+      <span id="rt-unsupported" class="hidden">API not supported</span>
+
+      <div>
+         <h2>Test 1 - jQuery</h2>
+
+         <ul id="script-list">
+         </ul>
+      </div>
+      <div>
+         <h2>Test 2 - Image</h2>
+
+         <img src="http://www.sitepoint.com/wp-content/themes/sitepoint/assets/svg/sitepoint.svg" />
+         <ul id="img-list">
+         </ul>
+      </div>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>).<br />
+         This demo is part of the <a href="https://github.com/AurelioDeRosa/HTML5-API-demos">HTML5 API demos repository</a>.
+      </small>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>
+         if ( !('performance' in window) ||
+                 !('getEntriesByType' in window.performance) ||
+                 !(window.performance.getEntriesByType('resource') instanceof Array)
+                 ) {
+            document.getElementById('rt-unsupported').classList.remove('hidden');
+         } else {
+            window.addEventListener('load', function() {
+               var resources = window.performance.getEntriesByType('resource');
+               for(var obj in resources) {
+                  var list = '';
+                  for(var properties in resources[obj]) {
+                     list += '<li>' + properties + ': <span class="value">' + resources[obj][properties] + '</span></li>';
+                  }
+                  document.getElementById(resources[obj].initiatorType + '-list').innerHTML = list;
+               }
+            });
+         }
+      </script>
+   </body>
+</html>
