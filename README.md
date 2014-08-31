@@ -27,5 +27,5 @@ In this repository you can find the demos for the following APIs, listed in alph
 [HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is licensed under the
 [CC BY-NC 4.0](http://creativecommons.org/licenses/by-nc/4.0/) ("Creative Commons Attribution NonCommercial 4.0")
 
-## Authors ##
+## Author ##
 [Aurelio De Rosa](http://www.audero.it) (Twitter: [@AurelioDeRosa](https://twitter.com/AurelioDeRosa))
