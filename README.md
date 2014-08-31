@@ -1,7 +1,9 @@
 # HTML5 API demos #
-[HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is a collection of demos that I've developed over the time as a complement for some of the articles I've published. These demos allow you to play with the functionalities of some of the APIs introduced in HTML5.
+[HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is a repository where you can find information about many JavaScript and HTML5 APIs.
 
-In this repository you can find the demos for the following APIs, listed in alphabetic order:
+For every API listed in this repository you'll find a link to the specifications, an article I've written on the subject, a link to [CanIUse](http://caniuse.com/) to discover what browsers support it, and to a demo I've developed as a complement for the articles. The demos are particularly valuable because they allow you to play with the these JavaScript and HTML5 APIs.
+
+In this repository you can learn about the following APIs, listed in alphabetic order:
 
 | API   | Specifications | Article | Support | Live demo |
 | ----- | :------------: | :-----: | :-----: | :-------: |
