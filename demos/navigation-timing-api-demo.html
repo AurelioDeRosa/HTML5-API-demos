@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Aurelio De Rosa">
+      <title>Navigation Timing API Demo by Aurelio De Rosa</title>
+
+      <style>
+         *
+         {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+         }
+
+         body
+         {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 0 0.5em;
+            font-size: 20px;
+         }
+
+         h1
+         {
+            text-align: center;
+         }
+
+         .hidden
+         {
+            display: none;
+         }
+
+         .value
+         {
+            font-weight: bold;
+         }
+
+         .author
+         {
+            display: block;
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Navigation Timing API</h1>
+
+      <span id="nt-unsupported" class="hidden">API not supported</span>
+
+      <h2>Timing info</h2>
+      <ul id="timing-list">
+      </ul>
+
+      <h2>Navigation info</h2>
+      <ul id="navigation-list">
+      </ul>
+
+      <small class="author">
+         Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
+         (<a href="https://twitter.com/AurelioDeRosa">@AurelioDeRosa</a>).<br />
+         This demo is part of the <a href="https://github.com/AurelioDeRosa/HTML5-API-demos">HTML5 API demos repository</a>.
+      </small>
+
+      <script>
+         if ( !('performance' in window)            ||
+              !('timing' in window.performance)     ||
+              !('navigation' in window.performance)
+         ) {
+            document.getElementById('nt-unsupported').className = '';
+         } else {
+            window.addEventListener('load', function() {
+               var list = '';
+               var timings = window.performance.timing;
+               for(var timing in timings) {
+                  list += '<li>' + timing + ': <span class="value">' + timings[timing] + '</span></li>';
+               }
+               document.getElementById('timing-list').innerHTML = list;
+
+               list = '';
+               list += '<li>redirectCount: <span class="value">' + window.performance.navigation['redirectCount'] + '</span></li>';
+               list += '<li>type: <span class="value">' + window.performance.navigation['type'] + '</span></li>';
+               document.getElementById('navigation-list').innerHTML = list;
+            });
+         }
+      </script>
+   </body>
+</html>
