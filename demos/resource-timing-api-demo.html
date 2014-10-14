@@ -81,12 +81,12 @@
          } else {
             window.addEventListener('load', function() {
                var resources = window.performance.getEntriesByType('resource');
-               for(var obj in resources) {
+               for(var index in resources) {
                   var list = '';
-                  for(var properties in resources[obj]) {
-                     list += '<li>' + properties + ': <span class="value">' + resources[obj][properties] + '</span></li>';
+                  for(var properties in resources[index]) {
+                     list += '<li>' + properties + ': <span class="value">' + resources[index][properties] + '</span></li>';
                   }
-                  document.getElementById(resources[obj].initiatorType + '-list').innerHTML = list;
+                  document.getElementById(resources[index].initiatorType + '-list').innerHTML = list;
                }
             });
          }
