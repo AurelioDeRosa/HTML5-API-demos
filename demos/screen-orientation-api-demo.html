@@ -60,14 +60,23 @@
       <h1>Screen Orientation API</h1>
 
       <span id="so-unsupported" class="api-support hidden">API not supported</span>
+      <span id="soo-supported" class="api-support hidden">Old API version supported</span>
 
       <div id="so-results">
-         <p>
-            The orientation of the device is <span id="orientation" class="value">unavailable</span>
-         </p>
-         <form id="form-orientation">
-            <label for="orientation">Lock the device in:</label>
+         <ul>
+            <li>
+               The orientation of the device is <span id="orientation" class="value">unavailable</span>.
+            </li>
+            <li class="new-api hidden">
+               The angle of the device is <span id="angle" class="value">unavailable</span>.
+            </li>
+         </ul>
+
+         <form>
+            <label for="orientation-type">Lock the device in:</label>
             <select id="orientation-type">
+               <option value="any">any</option>
+               <option value="natural">natural</option>
                <option value="portrait">portrait</option>
                <option value="landscape">landscape</option>
                <option value="portrait-primary">portrait-primary</option>
@@ -77,7 +86,7 @@
             </select>
             <br />
             <input class="button-demo" id="lock-button" type="submit" value="Lock!" />
-            <button class="button-demo" id="unlock-button">Unlock!</button>
+            <input class="button-demo" id="unlock-button" type="reset" value="Unlock!" />
          </form>
       </div>
 
@@ -100,54 +109,98 @@
                document.getElementById(elementId).setAttribute('disabled', 'disabled');
             });
          } else {
-            var form = document.getElementById('form-orientation');
             var select = document.getElementById('orientation-type');
+            var orientationElem = document.getElementById('orientation');
+            var onChangeHandler;
 
-            // Function needed to see lock in action
-            function launchFullscreen(element) {
-               if(element.requestFullscreen) {
-                  element.requestFullscreen();
-               } else if(element.mozRequestFullScreen) {
-                  element.mozRequestFullScreen();
-               } else if(element.webkitRequestFullscreen) {
-                  element.webkitRequestFullscreen();
-               } else if(element.msRequestFullscreen) {
-                  element.msRequestFullscreen();
+            var Fullscreen = {
+               launch: function(element) {
+                  if(element.requestFullscreen) {
+                     element.requestFullscreen();
+                  } else if(element.mozRequestFullScreen) {
+                     element.mozRequestFullScreen();
+                  } else if(element.webkitRequestFullscreen) {
+                     element.webkitRequestFullscreen();
+                  } else if(element.msRequestFullscreen) {
+                     element.msRequestFullscreen();
+                  }
+               },
+               exit: function() {
+                  if(document.exitFullscreen) {
+                     document.exitFullscreen();
+                  } else if(document.mozCancelFullScreen) {
+                     document.mozCancelFullScreen();
+                  } else if(document.webkitExitFullscreen) {
+                     document.webkitExitFullscreen();
+                  } else if (document.msExitFullscreen) {
+                     document.msExitFullscreen();
+                  }
                }
-            }
+            };
 
-            function exitFullscreen() {
-               if(document.exitFullscreen) {
-                  document.exitFullscreen();
-               } else if(document.mozCancelFullScreen) {
-                  document.mozCancelFullScreen();
-               } else if(document.webkitExitFullscreen) {
-                  document.webkitExitFullscreen();
-               } else if (document.msExitFullscreen) {
-                  document.msExitFullscreen();
+            // Determine what version of the API is implemented
+            if ('orientation' in screen && 'angle' in screen.orientation) {
+               // The browser supports the new version of the API
+
+               // Show the properties supported by the new version
+               var newProperties = document.getElementsByClassName('new-api');
+               for(var i = 0; i < newProperties.length; i++) {
+                  newProperties[i].classList.remove('hidden');
                }
+
+               document.getElementById('lock-button').addEventListener('click', function (event) {
+                  event.preventDefault();
+                  Fullscreen.launch(document.documentElement);
+                  screen.orientation.lock(select.value);
+               });
+
+               document.getElementById('unlock-button').addEventListener('click', function (event) {
+                  event.preventDefault();
+                  Fullscreen.exit();
+                  screen.orientation.unlock();
+               });
+
+               var angleElem = document.getElementById('angle');
+               onChangeHandler = function() {
+                  orientationElem.textContent = screen.orientation.type;
+                  angleElem.textContent = screen.orientation.angle;
+               };
+               screen.orientation.addEventListener('change', onChangeHandler);
+               onChangeHandler();
+            } else {
+               // The browser supports the old version of the API, so the user is informed of that
+               document.getElementById('soo-supported').classList.remove('hidden');
+
+               // Remove the options that aren't available in the old version of the API
+               var unavailableOptions = [
+                  document.querySelector('#orientation-type option[value="any"]'),
+                  document.querySelector('#orientation-type option[value="natural"]')
+               ];
+               for(var i = 0; i < unavailableOptions.length; i++) {
+                  unavailableOptions[i].parentElement.removeChild(unavailableOptions[i]);
+               }
+
+               document.getElementById('lock-button').addEventListener('click', function (event) {
+                  event.preventDefault();
+                  Fullscreen.launch(document.documentElement);
+
+                  setTimeout(function () {
+                     screen[prefix + (prefix === '' ? 'l' : 'L') + 'ockOrientation'](select.value);
+                  }, 1);
+               });
+               document.getElementById('unlock-button').addEventListener('click', function (event) {
+                  event.preventDefault();
+                  screen[prefix + (prefix === '' ? 'u' : 'U') + 'nlockOrientation']();
+                  Fullscreen.exit();
+               });
+
+               onChangeHandler = function() {
+                  var orientationProperty = prefix + (prefix === '' ? 'o' : 'O') + 'rientation';
+                  orientationElem.textContent = screen[orientationProperty];
+               };
+               screen.addEventListener(prefix + 'orientationchange', onChangeHandler);
+               onChangeHandler();
             }
-
-            function orientationHandler() {
-               var orientationProperty = prefix + (prefix === '' ? 'o' : 'O') + 'rientation';
-               document.getElementById('orientation').textContent = screen[orientationProperty];
-            }
-
-            screen.addEventListener(prefix + 'orientationchange', orientationHandler);
-            document.getElementById('lock-button').addEventListener('click', function(event) {
-               event.preventDefault();
-               launchFullscreen(document.documentElement);
-
-               setTimeout(function() {
-                  screen[prefix + (prefix === '' ? 'l' : 'L') + 'ockOrientation'](select.value);
-               }, 1);
-            });
-            document.getElementById('unlock-button').addEventListener('click', function() {
-               exitFullscreen();
-               screen[prefix + (prefix === '' ? 'u' : 'U') + 'nlockOrientation']();
-            });
-
-            orientationHandler();
          }
       </script>
    </body>
