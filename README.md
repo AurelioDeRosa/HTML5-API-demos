@@ -7,7 +7,7 @@ In this repository you can learn about the following APIs, listed in alphabetic 
 
 | API   | Specifications | Article | Support | Live demo |
 | ----- | :------------: | :-----: | :-----: | :-------: |
-| Ambient Light API| [Specifications](http://www.w3.org/TR/ambient-light/) | [Article](http://flippinawesome.org/2014/05/27/introduction-to-the-ambient-light-api/) | [Support](http://caniuse.com/#feat=ambient-light) | [Live demo](http://aurelio.audero.it/demo/ambient-light-api-demo.html)
+| Ambient Light API| [Specifications](http://www.w3.org/TR/ambient-light/) | [Article](http://modernweb.com/2014/05/27/introduction-to-the-ambient-light-api/) | [Support](http://caniuse.com/#feat=ambient-light) | [Live demo](http://aurelio.audero.it/demo/ambient-light-api-demo.html)
 | Battery Status API| [Specifications](http://www.w3.org/TR/battery-status/) | [Article](http://code.tutsplus.com/tutorials/html5-battery-status-api--mobile-22795) | [Support](http://caniuse.com/#feat=battery-status) | [Live demo](http://aurelio.audero.it/demo/battery-status-api-demo.html)
 | classList API| [Specifications](http://dom.spec.whatwg.org/#dom-element-classlist) | [Article](http://www.sitepoint.com/exploring-classlist-api/) | [Support](http://caniuse.com/#feat=classlist) | [Live demo](http://aurelio.audero.it/demo/classlist-api-demo.html)
 | Dataset API| [Specifications](http://www.w3.org/TR/html5/dom.html#dom-dataset) | [Article](http://www.sitepoint.com/managing-custom-data-html5-dataset-api/) | [Support](http://caniuse.com/#feat=dataset) | [Live demo](http://aurelio.audero.it/demo/dataset-api-demo.html)
