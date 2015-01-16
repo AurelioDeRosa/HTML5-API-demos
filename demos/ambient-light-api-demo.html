@@ -71,17 +71,9 @@
 
       <h1>Ambient Light API</h1>
 
-      <span id="dl-unsupported" class="api-support hidden">devicelight event not supported</span>
-      <span id="ll-unsupported" class="api-support hidden">lightlevel event not supported</span>
+      <span id="al-unsupported" class="api-support hidden">API not supported</span>
 
-      <ul>
-         <li>
-            The current light is <span id="dl-value" class="value">null</span> lux.
-         </li>
-         <li>
-            The current state is <span id="ll-value" class="value">null</span>.
-         </li>
-      </ul>
+      <p>The current light is <span id="dl-value" class="value">null</span> lux.</p>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -91,7 +83,7 @@
 
       <script>
          if (!('ondevicelight' in window)) {
-            document.getElementById('dl-unsupported').classList.remove('hidden');
+            document.getElementById('al-unsupported').classList.remove('hidden');
          } else {
             var lightValue = document.getElementById('dl-value');
 
@@ -105,16 +97,6 @@
                } else {
                   document.body.className = 'light-theme';
                }
-            });
-         }
-
-         if (!('onlightlevel' in window)) {
-            document.getElementById('ll-unsupported').classList.remove('hidden');
-         } else {
-            var lightStateValue = document.getElementById('ll-value');
-
-            window.addEventListener('lightlevel', function(event) {
-               lightStateValue.innerHTML = event.value;
             });
          }
       </script>
