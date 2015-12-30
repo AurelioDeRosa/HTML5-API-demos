@@ -122,21 +122,17 @@
             var pitch = document.getElementById('pitch');
             var log = document.getElementById('log');
 
-            // Workaround for a Chrome issue (#340160 - https://code.google.com/p/chromium/issues/detail?id=340160)
-            var watch = setInterval(function() {
+            window.speechSynthesis.addEventListener('voiceschanged', function() {
                // Load all voices available
-               var voicesAvailable = speechSynthesis.getVoices();
-               if (voicesAvailable.length !== 0) {
-                  for(var i = 0; i < voicesAvailable.length; i++) {
-                     voices.innerHTML += '<option value="' + voicesAvailable[i].lang + '"' +
-                             'data-voice-uri="' + voicesAvailable[i].voiceURI + '">' +
-                             voicesAvailable[i].name +
-                             (voicesAvailable[i].default ? ' (default)' : '') + '</option>';
-                  }
-                  clearInterval(watch);
-               }
-            }, 1);
+               var voicesAvailable = window.speechSynthesis.getVoices();
 
+               for(var i = 0; i < voicesAvailable.length; i++) {
+                  voices.innerHTML += '<option value="' + voicesAvailable[i].lang + '"' +
+                  'data-voice-uri="' + voicesAvailable[i].voiceURI + '">' +
+                  voicesAvailable[i].name +
+                  (voicesAvailable[i].default ? ' (default)' : '') + '</option>';
+               }
+            });
 
             document.getElementById('button-speak-ss').addEventListener('click', function(event) {
                event.preventDefault();
@@ -151,12 +147,12 @@
                utterance.rate = rate.value;
                utterance.pitch = pitch.value;
 
-               utterance.onstart = function() {
+               utterance.addEventListener('start', function() {
                   log.innerHTML = 'Speaker started' + '<br />' + log.innerHTML;
-               };
-               utterance.onend = function() {
+               });
+               utterance.addEventListener('end', function() {
                   log.innerHTML = 'Speaker finished' + '<br />' + log.innerHTML;
-               };
+               });
 
                window.speechSynthesis.speak(utterance);
             });
