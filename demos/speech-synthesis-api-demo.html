@@ -116,6 +116,7 @@
                document.getElementById(elementId).setAttribute('disabled', 'disabled');
             });
          } else {
+            var voicesAvailable = window.speechSynthesis.getVoices();
             var text = document.getElementById('text');
             var voices = document.getElementById('voice');
             var rate = document.getElementById('rate');
@@ -124,7 +125,7 @@
 
             window.speechSynthesis.addEventListener('voiceschanged', function() {
                // Load all voices available
-               var voicesAvailable = window.speechSynthesis.getVoices();
+               voicesAvailable = window.speechSynthesis.getVoices();
 
                for(var i = 0; i < voicesAvailable.length; i++) {
                   voices.innerHTML += '<option value="' + voicesAvailable[i].lang + '"' +
@@ -137,13 +138,17 @@
             document.getElementById('button-speak-ss').addEventListener('click', function(event) {
                event.preventDefault();
 
-               var selectedVoice = voices.options[voices.selectedIndex];
+               var selectedOption = voices.options[voices.selectedIndex];
+               var selectedVoice = voicesAvailable.filter(function(voice) {
+                  return voice.voiceURI === selectedOption.getAttribute('data-voice-uri');
+               })
+               .pop();
 
                // Create the utterance object setting the chosen parameters
                var utterance = new SpeechSynthesisUtterance();
                utterance.text = text.value;
-               utterance.voice = selectedVoice.getAttribute('data-voice-uri');
-               utterance.lang = selectedVoice.value;
+               utterance.voice = selectedVoice;
+               utterance.lang = selectedVoice.lang;
                utterance.rate = rate.value;
                utterance.pitch = pitch.value;
 
