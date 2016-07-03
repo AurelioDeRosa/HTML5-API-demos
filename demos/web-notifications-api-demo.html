@@ -5,87 +5,22 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>Web Notifications API Demo by Aurelio De Rosa</title>
+      <link rel="stylesheet" href="../shared.css" />
       <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         #custom-notification
+         .form-notification
          {
             margin-top: 1em;
          }
 
-         label
-         {
-            display: block;
-         }
-
-         input[name="title"],
-         textarea
+         .notification-title,
+         .notification-body
          {
             width: 100%;
          }
 
-         input[name="title"]
-         {
-            height: 2em;
-         }
-
-         textarea
+         .notification-body
          {
             height: 5em;
-         }
-
-         .buttons-wrapper
-         {
-            text-align: center;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            margin: 1em;
-         }
-
-         #log
-         {
-            height: 200px;
-            width: 100%;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
          }
       </style>
    </head>
@@ -96,22 +31,26 @@
 
       <span id="wn-unsupported" class="api-support hidden">API not supported</span>
 
-      <form id="custom-notification" action="">
-         <label for="title">Title:</label>
-         <input type="text" id="title" name="title" />
+      <form id="custom-notification" class="form-notification" action="">
+         <label>
+            Title:
+            <input type="text" id="title" class="notification-title" name="title" />
+         </label>
 
-         <label for="body">Body:</label>
-         <textarea id="body" name="body"></textarea>
+         <label>
+            Body:
+            <textarea id="body" class="notification-body" name="body"></textarea>
+         </label>
 
          <div class="buttons-wrapper">
-            <button id="button-wn-show-preset" class="button-demo">Show Preset Notification</button>
-            <input type="submit" id="button-wn-show-custom" class="button-demo" value="Show Custom Notification" />
+            <button id="button-wn-show-preset" class="button">Show Preset Notification</button>
+            <input type="submit" id="button-wn-show-custom" class="button" value="Show Custom Notification" />
          </div>
       </form>
 
       <h3>Log</h3>
-      <div id="log"></div>
-      <button id="clear-log" class="button-demo">Clear log</button>
+      <div id="log" class="log"></div>
+      <button id="clear-log" class="button">Clear log</button>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>

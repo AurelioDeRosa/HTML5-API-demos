@@ -5,64 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>High Resolution Time API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         .field-wrapper
-         {
-            margin-bottom: 1em;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            display: block;
-            margin: 1em auto;
-         }
-
-         #log
-         {
-            height: 200px;
-            width: 100%;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://www.sitepoint.com/discovering-the-high-resolution-time-api/">Go back to the article</a>
@@ -82,12 +25,12 @@
             <input type="number" id="count-hrt-2" value="1000000" />
          </div>
 
-         <button type="button" id="button-play-hrt" class="button-demo">Run demo</button>
+         <button type="button" id="button-play-hrt" class="button">Run demo</button>
       </form>
 
       <h3>Log</h3>
       <div id="log"></div>
-      <button id="clear-log" class="button-demo">Clear log</button>
+      <button id="clear-log" class="button">Clear log</button>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -138,4 +81,4 @@
       </script>
    </body>
 </html>
-   
+

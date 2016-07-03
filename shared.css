@@ -1,0 +1,84 @@
+*,
+*:before,
+*:after
+{
+   box-sizing: border-box;
+   hyphens: auto;
+   overflow-wrap: break-word;
+}
+
+html
+{
+   font-size: 20px;
+}
+
+body
+{
+   max-width: 500px;
+   margin: 2em auto;
+   padding: 0 0.5em;
+}
+
+h1
+{
+   text-align: center;
+}
+
+button,
+input,
+select
+{
+   font-size: inherit;
+}
+
+.button
+{
+   padding: 0.5em;
+   margin: 1em 0;
+}
+
+.button + .button
+{
+   margin-left: 1em;
+}
+
+.api-support
+{
+   display: block;
+}
+
+.hidden,
+[hidden]
+{
+   display: none;
+}
+
+.field-wrapper
+{
+   margin-top: 1em;
+}
+
+.buttons-wrapper
+{
+   text-align: center;
+}
+
+.value
+{
+   font-weight: bold;
+}
+
+.author
+{
+   display: block;
+   margin-top: 1em;
+}
+
+.log
+{
+   border: 1px solid #333333;
+   height: 200px;
+   line-height: 1.3em;
+   overflow-y: scroll;
+   width: 100%;
+}

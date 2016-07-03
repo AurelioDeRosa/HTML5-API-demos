@@ -5,63 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>classList API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         .field-wrapper
-         {
-            margin-top: 1em;
-         }
-
-         #log
-         {
-            height: 200px;
-            width: 100%;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            margin: 1em;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://www.sitepoint.com/exploring-classlist-api/">Go back to the article</a>
@@ -94,12 +38,12 @@
             <input type="text" id="parameter" />
          </div>
 
-         <button id="execute" class="button-demo">Execute</button>
+         <button id="execute" class="button">Execute</button>
       </div>
 
       <h3>Log</h3>
-      <div id="log"></div>
-      <button id="clear-log" class="button-demo">Clear log</button>
+      <div id="log" class="log"></div>
+      <button id="clear-log">Clear log</button>
 
       <span id="play-element" class="description"></span>
 
@@ -137,7 +81,7 @@
                      message += ': ' + result;
                   }
                }
-               
+
                log.innerHTML = message + '<br />' + log.innerHTML;
             });
          }

@@ -5,66 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>Web Speech API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .buttons-wrapper
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-         
-         #transcription,
-         #log
-         {
-            display: block;
-            width: 100%;
-            height: 5em;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            display: inline-block;
-            margin: 1em auto;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://www.sitepoint.com/introducing-web-speech-api/">Go back to the article</a>
@@ -74,19 +15,19 @@
       <span id="ws-unsupported" class="api-support hidden">API not supported</span>
 
       <h2>Transcription</h2>
-      <textarea id="transcription" readonly="readonly"></textarea>
+      <textarea id="transcription" class="log" readonly="readonly"></textarea>
 
       <span>Results:</span>
       <label><input type="radio" name="recognition-type" value="final" checked="checked" /> Final only</label>
       <label><input type="radio" name="recognition-type" value="interim" /> Interim</label>
 
       <h3>Log</h3>
-      <div id="log"></div>
+      <div id="log" class="log"></div>
 
       <div class="buttons-wrapper">
-         <button id="button-play-ws" class="button-demo">Play demo</button>
-         <button id="button-stop-ws" class="button-demo">Stop demo</button>
-         <button id="clear-all" class="button-demo">Clear all</button>
+         <button id="button-play-ws" class="button">Play demo</button>
+         <button id="button-stop-ws" class="button">Stop demo</button>
+         <button id="clear-all" class="button">Clear all</button>
       </div>
 
       <small class="author">

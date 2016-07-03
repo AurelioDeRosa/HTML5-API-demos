@@ -5,54 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>Vibration API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-         
-         .buttons-wrapper
-         {
-            text-align: center;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            margin: 1em auto;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://code.tutsplus.com/tutorials/html5-vibration-api--mobile-22585">Go back to the article</a>
@@ -62,9 +15,9 @@
       <span id="v-unsupported" class="api-support hidden">API not supported</span>
 
       <div class="buttons-wrapper">
-         <button id="button-play-v-once" class="button-demo">Vibrate Once</button>
-         <button id="button-play-v-thrice" class="button-demo">Vibrate Thrice</button>
-         <button id="button-stop-v" class="button-demo">Stop</button>
+         <button id="button-play-v-once" class="button">Vibrate Once</button>
+         <button id="button-play-v-thrice" class="button">Vibrate Thrice</button>
+         <button id="button-stop-v" class="button">Stop</button>
       </div>
 
       <small class="author">
@@ -94,4 +47,4 @@
       </script>
    </body>
 </html>
-   
+

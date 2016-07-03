@@ -5,59 +5,12 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>getUserMedia Demo by Aurelio De Rosa</title>
+      <link rel="stylesheet" href="../shared.css" />
       <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-         
-         .buttons-wrapper
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-         
-         #video
+         .video
          {
             display: block;
             width: 100%;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            display: inline-block;
-            margin: 1em auto;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
          }
       </style>
    </head>
@@ -68,10 +21,10 @@
       <span id="gum-unsupported" class="api-support hidden">API not supported</span>
       <span id="gum-partially-supported" class="api-support hidden">API partially supported (video only)</span>
 
-      <video id="video" autoplay="autoplay" controls="controls"></video>
+      <video id="video" class="video" autoplay="autoplay" controls="controls"></video>
       <div class="buttons-wrapper">
-         <button id="button-play-gum" class="button-demo">Play demo</button>
-         <button id="button-stop-gum" class="button-demo">Stop demo</button>
+         <button id="button-play-gum" class="button">Play demo</button>
+         <button id="button-stop-gum" class="button">Stop demo</button>
       </div>
 
       <small class="author">
@@ -134,4 +87,4 @@
       </script>
    </body>
 </html>
-   
+

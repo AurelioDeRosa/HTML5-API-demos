@@ -5,55 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>User Timing API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         .field-wrapper
-         {
-            margin-bottom: 1em;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            display: block;
-            margin: 1em auto;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://www.sitepoint.com/discovering-user-timing-api/">Go back to the article</a>
@@ -73,7 +25,7 @@
             <input type="number" id="count-ut-2" value="1000000" />
          </div>
 
-         <button type="button" id="button-play-ut" class="button-demo">Run demo</button>
+         <button type="button" id="button-play-ut" class="button">Run demo</button>
       </form>
 
       <div id="ut-results" class="hidden">
@@ -139,4 +91,4 @@
       </script>
    </body>
 </html>
-   
+

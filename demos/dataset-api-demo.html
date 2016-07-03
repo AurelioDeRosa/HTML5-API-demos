@@ -5,63 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>Dataset API Demo by Aurelio De Rosa</title>
-      <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         #log
-         {
-            height: 200px;
-            width: 100%;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .buttons-demo-wrapper
-         {
-            text-align: center;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            margin: 1em;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
-         }
-      </style>
+      <link rel="stylesheet" href="../shared.css" />
    </head>
    <body>
       <a href="http://www.sitepoint.com/managing-custom-data-html5-dataset-api/">Go back to the article</a>
@@ -82,16 +26,16 @@
          <label for="value">Value:</label>
          <input type="text" id="value" />
 
-         <div class="buttons-demo-wrapper">
-            <button id="set-data" class="button-demo">Set data</button>
-            <button id="get-data" class="button-demo">Get data</button>
-            <button id="delete-data" class="button-demo">Delete data</button>
+         <div class="buttons-wrapper">
+            <button id="set-data" class="button">Set data</button>
+            <button id="get-data" class="button">Get data</button>
+            <button id="delete-data" class="button">Delete data</button>
          </div>
       </div>
 
       <h3>Log</h3>
-      <div id="log"></div>
-      <button id="clear-log" class="button-demo">Clear log</button>
+      <div id="log" class="log"></div>
+      <button id="clear-log" class="button">Clear log</button>
 
       <span id="play-element" class="hidden" data-level="1" data-points="100" data-final-opponent="Dragon"></span>
 
@@ -127,7 +71,7 @@
                   log.innerHTML = 'Set data-' + key.value + ' attribute to "' + value.value + '"<br />' +
                                   log.innerHTML;
                }
-               
+
             });
             document.getElementById('get-data').addEventListener('click', function() {
                if (key.value.indexOf('-') !== -1) {

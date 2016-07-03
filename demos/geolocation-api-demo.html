@@ -5,66 +5,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="author" content="Aurelio De Rosa">
       <title>Geolocation API Demo by Aurelio De Rosa</title>
+      <link rel="stylesheet" href="../shared.css" />
       <style>
-         *
-         {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-         }
-
-         body
-         {
-            max-width: 500px;
-            margin: 2em auto;
-            padding: 0 0.5em;
-            font-size: 20px;
-         }
-
-         h1
-         {
-            text-align: center;
-         }
-
-         .api-support
-         {
-            display: block;
-         }
-
-         .hidden
-         {
-            display: none;
-         }
-
-         .buttons-wrapper
-         {
-            text-align: center;
-         }
-
-         .button-demo
-         {
-            padding: 0.5em;
-            margin: 1em auto;
-         }
-
          .g-info
          {
             font-weight: bold;
-         }
-
-         #log
-         {
-            height: 200px;
-            width: 100%;
-            overflow-y: scroll;
-            border: 1px solid #333333;
-            line-height: 1.3em;
-         }
-
-         .author
-         {
-            display: block;
-            margin-top: 1em;
          }
       </style>
    </head>
@@ -75,9 +20,9 @@
 
       <h1>Geolocation API</h1>
       <div class="buttons-wrapper">
-         <button id="button-get-position" class="button-demo">Get current position</button>
-         <button id="button-watch-position" class="button-demo">Watch position</button>
-         <button id="button-stop-watching" class="button-demo">Stop watching position</button>
+         <button id="button-get-position" class="button">Get current position</button>
+         <button id="button-watch-position" class="button">Watch position</button>
+         <button id="button-stop-watching" class="button">Stop watching position</button>
       </div>
 
       <h2>Information</h2>
@@ -100,7 +45,7 @@
 
       <h3>Log</h3>
       <div id="log"></div>
-      <button id="clear-log" class="button-demo">Clear log</button>
+      <button id="clear-log" class="button">Clear log</button>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -169,4 +114,4 @@
       </script>
    </body>
 </html>
-   
+
