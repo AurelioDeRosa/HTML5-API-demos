@@ -31,9 +31,12 @@
 
       <h1>Ambient Light API</h1>
 
-      <span id="al-unsupported" class="api-support hidden">API not supported</span>
+      <p hidden class="js-api-support">API not supported</p>
+      <p hidden class="js-old-api-support">Old API version supported</p>
 
-      <p>The current light is <span id="dl-value" class="value">null</span> lux.</p>
+      <p class="js-api-info">
+         The current light is <span id="dl-value" class="value">null</span> lux.
+      </p>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -42,21 +45,38 @@
       </small>
 
       <script>
-         if (!('ondevicelight' in window)) {
-            document.getElementById('al-unsupported').classList.remove('hidden');
-         } else {
-            var lightValue = document.getElementById('dl-value');
+         function updateLightLevel(lightLevel) {
+            document.getElementById('dl-value').innerHTML = Math.round(lightLevel);
+
+            if (lightLevel < 50) {
+               document.body.className = 'dark-theme';
+            } else if (lightLevel < 10000) {
+               document.body.className = 'classic-theme';
+            } else {
+               document.body.className = 'light-theme';
+            }
+         }
+
+         var isOldApiSupported = 'ondevicelight' in window;
+         var isNewApiSupported = 'AmbientLightSensor' in window;
+
+         if (!isOldApiSupported && !isNewApiSupported) {
+            document.querySelector('.js-api-support').removeAttribute('hidden');
+            document.querySelector('.js-api-info').setAttribute('hidden', '');
+         } else if (isOldApiSupported) {
+            document.querySelector('.js-old-api-support').removeAttribute('hidden');
 
             window.addEventListener('devicelight', function(event) {
-               lightValue.innerHTML = Math.round(event.value);
+               updateLightLevel(event.value);
+            });
+         } else {
+            document.querySelector('.js-api-support').removeAttribute('hidden');
 
-               if (event.value < 50) {
-                  document.body.className = 'dark-theme';
-               } else if (event.value < 10000) {
-                  document.body.className = 'classic-theme';
-               } else {
-                  document.body.className = 'light-theme';
-               }
+            var sensor = new AmbientLightSensor();
+
+            sensor.start();
+            sensor.addEventListener('change', function(event) {
+               updateLightLevel(event.reading.illuminance);
             });
          }
       </script>
