@@ -18,23 +18,23 @@
 
       <h1>Battery Status API</h1>
 
-      <span id="bs-unsupported" class="api-support hidden">API not supported</span>
+      <p hidden class="js-api-support">API not supported</p>
+      <p hidden class="js-old-api-support">Old API version supported</p>
 
-      <div id="bt-results" class="hidden">
-         <h3>Current Status</h3>
-         <div id="bs-status">
-            <ul>
-               <li>Is battery in charge? <span id="in-charge" class="bs-info">unavailable</span></li>
-               <li>Battery will be charged in <span id="charging-time" class="bs-info">unavailable</span> seconds</li>
-               <li>Battery will be discharged in <span id="discharging-time" class="bs-info">unavailable</span> seconds</li>
-               <li>Current battery level: <span id="battery-level" class="bs-info">unavailable</span>/1</li>
-            </ul>
-         </div>
+      <div class="js-api-info">
+         <p>Status:</p>
+
+         <ul>
+            <li>Is battery in charge? <span id="in-charge" class="bs-info">unavailable</span></li>
+            <li>Battery will be charged in <span id="charging-time" class="bs-info">unavailable</span> seconds</li>
+            <li>Battery will be discharged in <span id="discharging-time" class="bs-info">unavailable</span> seconds</li>
+            <li>Current battery level: <span id="battery-level" class="bs-info">unavailable</span>/1</li>
+         </ul>
+
+         <h2>Log</h2>
+         <div id="log" class="log"></div>
+         <button id="clear-log" class="button">Clear log</button>
       </div>
-
-      <h3>Log</h3>
-      <div id="log" class="log"></div>
-      <button id="clear-log" class="button">Clear log</button>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -43,47 +43,59 @@
       </small>
 
       <script>
-         window.navigator = window.navigator || {};
+         function updateBatteryInfo(battery) {
+            document.getElementById('in-charge').innerHTML = battery.charging ? 'Yes' : 'No';
+            document.getElementById('charging-time').innerHTML = battery.chargingTime;
+            document.getElementById('discharging-time').innerHTML = battery.dischargingTime;
+            document.getElementById('battery-level').innerHTML = battery.level;
+         }
 
-         if (!navigator.battery && !navigator.getBattery) {
-            document.getElementById('bs-unsupported').classList.remove('hidden');
-         } else {
+         function eventHandler(event) {
             var log = document.getElementById('log');
 
-            document.getElementById('bt-results').classList.remove('hidden');
+            log.innerHTML = 'Event "' + event.type + '" fired<br />' + log.innerHTML;
+            updateBatteryInfo(event.target);
+         }
 
-            function updateInfo(battery) {
-               document.getElementById('in-charge').innerHTML = (battery.charging ? 'Yes' : 'No');
-               document.getElementById('charging-time').innerHTML = battery.chargingTime;
-               document.getElementById('discharging-time').innerHTML = battery.dischargingTime;
-               document.getElementById('battery-level').innerHTML = battery.level;
+         function addBatteryEvents(battery) {
+            var events = [
+               'chargingchange',
+               'chargingtimechange',
+               'dischargingtimechange',
+               'levelchange'
+            ];
+
+            for (var i = 0; i < events.length; i++) {
+               battery.addEventListener(events[i], eventHandler);
             }
+         }
 
-            function addEvents(battery) {
-               function eventHandler(event) {
-                  log.innerHTML = 'Event "' + event.type + '" fired<br />' + log.innerHTML;
-                  updateInfo(event.target);
-               }
-
-               var events = ['chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange'];
-               for (var i = 0; i < events.length; i++) {
-                  battery.addEventListener(events[i], eventHandler);
-               }
-            }
-
-            if (navigator.getBattery) {
-               navigator.getBattery().then(function(battery) {
-                  updateInfo(battery);
-                  addEvents(battery);
-               });
-            } else {
-               updateInfo(navigator.battery);
-               addEvents(navigator.battery);
-            }
-
+         function enableClearLogButton() {
             document.getElementById('clear-log').addEventListener('click', function() {
-               log.innerHTML = '';
+               document.getElementById('log').innerHTML = '';
             });
+         }
+
+         window.navigator = window.navigator || {};
+
+         var isOldApiSupported = 'battery' in window.navigator;
+         var isNewApiSupported = 'getBattery' in window.navigator;
+
+         if (!isOldApiSupported && !isNewApiSupported) {
+            document.querySelector('.js-api-support').removeAttribute('hidden');
+            document.querySelector('.js-api-info').setAttribute('hidden', '');
+         } else if (isOldApiSupported) {
+            updateBatteryInfo(navigator.battery);
+            addBatteryEvents(navigator.battery);
+            enableClearLogButton();
+         } else {
+            navigator
+               .getBattery()
+               .then(function(battery) {
+                  updateBatteryInfo(battery);
+                  addBatteryEvents(battery);
+               });
+            enableClearLogButton();
          }
       </script>
    </body>
