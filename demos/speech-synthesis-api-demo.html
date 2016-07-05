@@ -12,9 +12,9 @@
 
       <h1>Speech Synthesis API</h1>
 
-      <span id="ss-unsupported" class="api-support hidden">API not supported</span>
+      <p hidden class="js-api-support">API not supported</p>
 
-      <h3>Play area</h3>
+      <h2>Play area</h2>
       <form action="" method="get">
          <label for="text">Text:</label>
          <textarea id="text" class="log"></textarea>
@@ -31,16 +31,16 @@
             <input type="number" id="pitch" min="0.1" max="2" value="1" step="any" />
          </div>
          <div class="buttons-wrapper">
-            <button id="button-speak-ss" class="button">Speak</button>
-            <button id="button-stop-ss" class="button">Stop</button>
-            <button id="button-pause-ss" class="button">Pause</button>
-            <button id="button-resume-ss" class="button">Resume</button>
+            <button type="button" id="button-speak" class="button">Speak</button>
+            <button type="button" id="button-stop" class="button">Stop</button>
+            <button type="button" id="button-pause" class="button">Pause</button>
+            <button type="button" id="button-resume" class="button">Resume</button>
          </div>
       </form>
 
-      <h3>Log</h3>
+      <h2>Log</h2>
       <div id="log" class="log"></div>
-      <button id="clear-all" class="button">Clear all</button>
+      <button id="clear-all" class="button">Clear log</button>
 
       <small class="author">
          Demo created by <a href="http://www.audero.it">Aurelio De Rosa</a>
@@ -49,40 +49,56 @@
       </small>
 
       <script>
-         // Test browser support
-         if (window.SpeechSynthesisUtterance === undefined) {
-            document.getElementById('ss-unsupported').classList.remove('hidden');
-            ['button-speak-ss', 'button-stop-ss', 'button-pause-ss', 'button-resume-ss'].forEach(function(elementId) {
-               document.getElementById(elementId).setAttribute('disabled', 'disabled');
+         function injectVoices(voicesElement, voices) {
+            voicesElement.innerHTML = voices
+               .map(function(voice) {
+                  var option = document.createElement('option');
+
+                  option.value = voice.lang;
+                  option.textContent = voice.name + (voice.default ? ' (default)' : '');
+                  option.setAttribute('data-voice-uri', voice.voiceURI);
+
+                  return option;
+               })
+               .map(function(option) {
+                  return option.outerHTML;
+               })
+               .join('');
+         }
+
+         function logEvent(string) {
+            var log = document.getElementById('log');
+
+            log.innerHTML = string + '<br />' + log.innerHTML;
+         }
+
+         if (!('SpeechSynthesisUtterance' in window)) {
+            document.querySelector('.js-api-support').removeAttribute('hidden');
+            [].forEach.call(document.querySelectorAll('form button'), function(button) {
+               button.setAttribute('disabled', '');
             });
          } else {
-            var voicesAvailable = window.speechSynthesis.getVoices();
             var text = document.getElementById('text');
             var voices = document.getElementById('voice');
             var rate = document.getElementById('rate');
             var pitch = document.getElementById('pitch');
-            var log = document.getElementById('log');
 
-            window.speechSynthesis.addEventListener('voiceschanged', function() {
-               // Load all voices available
-               voicesAvailable = window.speechSynthesis.getVoices();
+            injectVoices(voices, speechSynthesis.getVoices());
 
-               for(var i = 0; i < voicesAvailable.length; i++) {
-                  voices.innerHTML += '<option value="' + voicesAvailable[i].lang + '"' +
-                  'data-voice-uri="' + voicesAvailable[i].voiceURI + '">' +
-                  voicesAvailable[i].name +
-                  (voicesAvailable[i].default ? ' (default)' : '') + '</option>';
-               }
+            speechSynthesis.addEventListener('voiceschanged', function onVoiceChanged() {
+               speechSynthesis.removeEventListener('voiceschanged', onVoiceChanged);
+
+               injectVoices(voices, speechSynthesis.getVoices());
             });
 
-            document.getElementById('button-speak-ss').addEventListener('click', function(event) {
-               event.preventDefault();
-
+            document.getElementById('button-speak').addEventListener('click', function() {
                var selectedOption = voices.options[voices.selectedIndex];
-               var selectedVoice = voicesAvailable.filter(function(voice) {
-                  return voice.voiceURI === selectedOption.getAttribute('data-voice-uri');
-               })
-               .pop();
+               var selectedVoice = speechSynthesis
+                  .getVoices()
+                  .filter(function(voice) {
+                     return voice.voiceURI === selectedOption.getAttribute('data-voice-uri');
+                  })
+                  .pop();
 
                // Create the utterance object setting the chosen parameters
                var utterance = new SpeechSynthesisUtterance();
@@ -93,38 +109,32 @@
                utterance.pitch = pitch.value;
 
                utterance.addEventListener('start', function() {
-                  log.innerHTML = 'Speaker started' + '<br />' + log.innerHTML;
+                  logEvent('Speaker started');
                });
                utterance.addEventListener('end', function() {
-                  log.innerHTML = 'Speaker finished' + '<br />' + log.innerHTML;
+                  logEvent('Speaker finished');
                });
 
-               window.speechSynthesis.speak(utterance);
+               speechSynthesis.speak(utterance);
             });
-            document.getElementById('button-stop-ss').addEventListener('click', function(event) {
-               event.preventDefault();
 
-               window.speechSynthesis.cancel();
-               log.innerHTML = 'Speaker stopped' + '<br />' + log.innerHTML;
+            document.getElementById('button-stop').addEventListener('click', function() {
+               speechSynthesis.cancel();
+               logEvent('Speaker stopped');
             });
-            document.getElementById('button-pause-ss').addEventListener('click', function(event) {
-               event.preventDefault();
 
-               window.speechSynthesis.pause();
-               log.innerHTML = 'Speaker paused' + '<br />' + log.innerHTML;
+            document.getElementById('button-pause').addEventListener('click', function() {
+               speechSynthesis.pause();
+               logEvent('Speaker paused');
             });
-            document.getElementById('button-resume-ss').addEventListener('click', function(event) {
-               event.preventDefault();
 
-               if (window.speechSynthesis.paused === true) {
-                  window.speechSynthesis.resume();
-                  log.innerHTML = 'Speaker resumed' + '<br />' + log.innerHTML;
-               } else {
-                  log.innerHTML = 'Unable to resume. Speaker is not paused.' + '<br />' + log.innerHTML;
-               }
+            document.getElementById('button-resume').addEventListener('click', function() {
+               speechSynthesis.resume();
+               logEvent('Speaker resumed');
             });
+
             document.getElementById('clear-all').addEventListener('click', function() {
-               log.textContent = '';
+               document.getElementById('log').textContent = '';
             });
          }
       </script>
