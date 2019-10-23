@@ -7,76 +7,63 @@
    overflow-wrap: break-word;
 }
 
-html
-{
+html {
    font-size: 20px;
 }
 
-body
-{
+body {
    max-width: 500px;
    margin: 2em auto;
    padding: 0 0.5em;
 }
 
-h1
-{
+h1 {
    text-align: center;
 }
 
 button,
 input,
 select,
-textarea
-{
+textarea {
    font-size: inherit;
 }
 
-.button
-{
+.button {
    padding: 0.5em;
    margin: 1em 0;
 }
 
-.button + .button
-{
+.button + .button {
    margin-left: 1em;
 }
 
-.api-support
-{
+.api-support {
    display: block;
 }
 
 .hidden,
-[hidden]
-{
+[hidden] {
    display: none;
 }
 
-.field-wrapper
-{
+.field-wrapper {
    margin-top: 1em;
 }
 
-.buttons-wrapper
-{
+.buttons-wrapper {
    text-align: center;
 }
 
-.value
-{
+.value {
    font-weight: bold;
 }
 
-.author
-{
+.author {
    display: block;
    margin-top: 1em;
 }
 
-.log
-{
+.log {
    border: 1px solid #333333;
    height: 200px;
    line-height: 1.3em;
