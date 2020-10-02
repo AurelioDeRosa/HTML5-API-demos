@@ -28,7 +28,7 @@ In this repository you can learn about the following APIs, listed in alphabetic 
 | Web Speech API| [Specifications](https://dvcs.w3.org/hg/speech-api/raw-file/tip/webspeechapi.html) | [Article](http://www.sitepoint.com/introducing-web-speech-api/) | [Support](http://caniuse.com/#feat=speech-recognition) | [Live demo](http://aurelio.audero.it/demo/web-speech-api-demo.html)
 
 ## Note ##
-While the repository is called "HTML5 API demos", many of these APIs aren't part of the HTML5 specifications. So, technically speaking, many of them aren't HTML5 APIs. However, at the time I started this repository, I found the name to be useful as an umbrella to group them all and to... well, attract users (you know, SEO and the like).
+While the repository is called "HTML5 API demos", many of these APIs aren't part of the HTML5 specifications. So, honestly speaking, many of them aren't HTML5 APIs. However, at the time I started this repository, I found the name to be useful as an umbrella to group them all and to... well, attract users (you know, SEO and the like).
 
 ## License ##
 [HTML5 API demos](https://github.com/AurelioDeRosa/HTML5-API-demos) is licensed under the
