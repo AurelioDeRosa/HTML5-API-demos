@@ -129,6 +129,27 @@
       </small>
 
       <script>
+         // Apple devices require permission for accessing motion sensors.
+         if ('requestPermission' in DeviceMotionEvent) {
+            const requestPermission = async () => {
+               try {
+                  const state = await DeviceMotionEvent.requestPermission();
+                  if (state === 'granted') {
+                     document.removeEventListener(requestPermission);
+                     return;
+                  }
+                  // https://stackoverflow.com/questions/58120102/ios-safari-13-1-permission-for-devicemotionevent
+                  if (navigator.platform === 'iPhone') {
+                     alert('Restart your browser and try again.');
+                  }
+               } catch (err) {
+                  console.error(err.name, err.message)
+               }
+            };
+
+            document.addEventListener('click', requestPermission);
+         }
+
          if (!('ondeviceorientation' in window)) {
             document.getElementById('do-unsupported').classList.remove('hidden');
          } else {
