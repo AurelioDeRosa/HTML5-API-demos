@@ -73,14 +73,14 @@
                document.getElementById('longitude').innerHTML = position.coords.longitude;
                document.getElementById('position-accuracy').innerHTML = position.coords.accuracy;
 
-               document.getElementById('altitude').innerHTML = position.coords.altitude ?  position.coords.altitude :
+               document.getElementById('altitude').innerHTML = (position.coords.altitude !== null) ?  position.coords.altitude :
                        'unavailable';
-               document.getElementById('altitude-accuracy').innerHTML = position.coords.altitudeAccuracy ?
+               document.getElementById('altitude-accuracy').innerHTML = (position.coords.altitudeAccuracy !== null) ?
                        position.coords.altitudeAccuracy :
                        'unavailable';
-               document.getElementById('heading').innerHTML = position.coords.heading ? position.coords.heading :
+               document.getElementById('heading').innerHTML = (position.coords.heading !== null) ? position.coords.heading :
                        'unavailable';
-               document.getElementById('speed').innerHTML = position.coords.speed ? position.coords.speed :
+               document.getElementById('speed').innerHTML = (position.coords.speed !== null) ? position.coords.speed :
                        'unavailable';
 
                document.getElementById('timestamp').innerHTML = (new Date(position.timestamp)).toString();
